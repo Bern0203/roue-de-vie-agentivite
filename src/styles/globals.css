@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0C2234;
+  --secondary: #31555B;
+  --accent: #E3CB7D;
+  --light: #E4E2DD;
+}
+
+body {
+  @apply bg-white text-gray-900;
+  font-family: var(--font-montserrat);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+  color: var(--primary);
+}
+
+.subtitle {
+  font-family: var(--font-roboto);
+  color: var(--secondary);
+}
