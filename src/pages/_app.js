@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 import { Playfair_Display, Roboto, Montserrat } from 'next/font/google'
 
 const playfair = Playfair_Display({ subsets: ['latin'] })
