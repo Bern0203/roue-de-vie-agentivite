@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
@@ -6,8 +6,8 @@ const Card = React.forwardRef(({ className, ...props }, ref) => (
     className={`rounded-lg border bg-card text-card-foreground shadow-sm ${className}`}
     {...props}
   />
-));
-Card.displayName = "Card";
+))
+Card.displayName = "Card"
 
 const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
   <div
@@ -15,12 +15,12 @@ const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
     className={`flex flex-col space-y-1.5 p-6 ${className}`}
     {...props}
   />
-));
-CardHeader.displayName = "CardHeader";
+))
+CardHeader.displayName = "CardHeader"
 
 const CardContent = React.forwardRef(({ className, ...props }, ref) => (
   <div ref={ref} className={`p-6 pt-0 ${className}`} {...props} />
-));
-CardContent.displayName = "CardContent";
+))
+CardContent.displayName = "CardContent"
 
-export { Card, CardHeader, CardContent };
+export { Card, CardHeader, CardContent }
