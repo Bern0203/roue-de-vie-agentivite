@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { Card, CardContent } from '../components/ui/card'
 import { Slider } from '../components/ui/slider'
 import { Button } from '../components/ui/button'
@@ -27,10 +28,13 @@ export default function Home() {
 
   const IntroSection = () => (
     <div className="max-w-4xl mx-auto p-6 text-center">
-      <img 
+      <Image 
         src="/logo.png" 
-        alt="Académie Agentivité" 
-        className="h-24 mx-auto mb-8"
+        alt="Académie Agentivité"
+        width={96}
+        height={96}
+        priority
+        className="mx-auto mb-8"
       />
       <h1 className="text-4xl mb-6 text-primary">La Roue de la Vie</h1>
       <p className="text-lg mb-8 text-secondary">
@@ -73,6 +77,39 @@ export default function Home() {
     }
   }
 
+  const handleSubmit = async () => {
+    if (!email) return
+
+    try {
+      // Créer un objet avec les données des domaines et leurs valeurs
+      const data = {}
+      domaines.forEach((domaine, index) => {
+        data[domaine] = valeurs[index]
+      })
+
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          data
+        })
+      })
+
+      if (response.ok) {
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 3000)
+        setEmail('')
+      } else {
+        throw new Error('Erreur lors de l\'envoi')
+      }
+    } catch (error) {
+      console.error('Erreur:', error)
+    }
+  }
+
   if (showIntro) {
     return <IntroSection />
   }
@@ -81,10 +118,12 @@ export default function Home() {
     <div className="min-h-screen bg-light">
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <img 
+          <Image 
             src="/logo.png" 
-            alt="Académie Agentivité" 
-            className="h-16"
+            alt="Académie Agentivité"
+            width={64}
+            height={64}
+            priority
           />
           <h1 className="text-3xl text-primary">La Roue de la Vie</h1>
         </div>
@@ -201,6 +240,39 @@ export default function Home() {
                   >
                     +
                   </Button>
+                </div>
+
+                {/* Formulaire d'envoi par email */}
+                <div className="mt-8 pt-8 border-t border-gray-200">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-primary">
+                        Votre adresse email pour recevoir les résultats
+                      </label>
+                      <Input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="votre@email.com"
+                      />
+                    </div>
+                    
+                    <Button 
+                      onClick={handleSubmit}
+                      className="w-full bg-primary hover:bg-secondary"
+                      disabled={!email}
+                    >
+                      Envoyer les résultats
+                    </Button>
+
+                    {showSuccess && (
+                      <Alert className="bg-green-50 border-green-200">
+                        <AlertDescription className="text-green-800">
+                          Vos résultats ont été envoyés avec succès !
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
