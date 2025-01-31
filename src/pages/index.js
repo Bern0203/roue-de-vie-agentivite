@@ -196,6 +196,11 @@ export default function Home() {
 
               {/* Contrôles des valeurs */}
               <div className="flex-1 space-y-4">
+                {/* Indication sur l'utilisation des curseurs */}
+<div className="mb-6 text-sm text-secondary">
+  <p>Placez le curseur de 1 à 10 pour chaque domaine :</p>
+  <p>1 = pas satisfaisant, 10 = très satisfaisant</p>
+</div>
                 {/* Liste des domaines avec leurs sliders */}
                 {domaines.map((domaine, index) => (
                   <div key={`control-${index}`} className="space-y-2">
